@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="darkreader-lock">
+  <title>Game Program Atlas | 世界地图</title>
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="vendor/leaflet.markercluster/MarkerCluster.css">
+  <link rel="stylesheet" href="vendor/leaflet.markercluster/MarkerCluster.Default.css">
+  <link rel="stylesheet" href="atlas.css">
+</head>
+<body>
+  <header class="masthead">
+    <a class="wordmark" href="#world-map" aria-label="Game Program Atlas 首页">GAME PROGRAM ATLAS</a>
+    <p id="freshness">正在读取公开数据</p>
+    <button id="data-guide-toggle" class="guide-toggle" type="button" aria-controls="data-guide" aria-expanded="false">数据导览台</button>
+    <button id="theme-toggle" class="theme-button" type="button" aria-label="切换深浅色">切换主题</button>
+  </header>
+
+  <section class="coverage-notice atlas-summary" aria-labelledby="coverage-title">
+    <div class="summary-title">
+      <h1 id="coverage-title">全球游戏相关学位项目地图</h1>
+    </div>
+    <div class="summary-coverage">
+      <p id="coverage-statement">当前覆盖正在从本地公开数据计算；项目与机构均经过来源审核。已知未覆盖范围会在这里明确列出。</p>
+      <p id="faculty-gap" class="faculty-gap">正在统计教师名册覆盖度。</p>
+    </div>
+    <dl class="coverage-metrics" aria-live="polite">
+      <div><dt>根机构</dt><dd id="metric-organizations">-</dd></div>
+      <div><dt>国家 / 地区</dt><dd id="metric-countries">-</dd></div>
+      <div><dt>教师</dt><dd id="metric-people">-</dd></div>
+      <div><dt>项目记录</dt><dd id="metric-programs">-</dd></div>
+    </dl>
+  </section>
+
+
+  <section id="data-guide" class="data-guide" aria-labelledby="data-guide-title" hidden>
+    <div class="data-guide-inner">
+      <div class="data-guide-heading">
+        <div>
+          <p class="guide-kicker">公开快照 · 口径与证据</p>
+          <h1 id="data-guide-title">数据导览台</h1>
+          <p class="guide-intro">面向第三方说明当前公开数据统计了什么、从哪里查到，以及不同来源在核对中的作用。</p>
+        </div>
+        <button id="data-guide-close" class="zoom-reset" type="button">返回地图</button>
+      </div>
+      <p id="data-guide-snapshot" class="guide-meta"></p>
+
+      <section class="guide-section" aria-labelledby="guide-stats-title">
+        <h2 id="guide-stats-title">当前统计</h2>
+        <p id="guide-stats-note" class="guide-note"></p>
+        <dl id="guide-stat-list" class="guide-stat-list"></dl>
+      </section>
+
+      <section class="guide-section guide-visual-section" aria-labelledby="guide-visual-title">
+        <h2 id="guide-visual-title">分布概览</h2>
+        <p class="guide-note">图表帮助快速阅读，精确数值和完整国家清单以表格为准；图形只表达数量，不表达质量评价、排名或推荐。</p>
+        <div class="guide-chart-grid">
+          <article class="guide-chart-block">
+            <div class="guide-chart-heading">
+              <h3>根机构所在国家 / 地区</h3>
+              <span>单位：根机构</span>
+            </div>
+            <div class="guide-donut-layout">
+              <svg id="guide-country-chart" class="guide-chart guide-donut" role="img" aria-labelledby="guide-country-chart-title guide-country-chart-desc" viewBox="0 0 220 220">
+                <title id="guide-country-chart-title">根机构国家 / 地区分布</title>
+                <desc id="guide-country-chart-desc">按根机构数量逐个显示所有已标注国家，并将未标注项目单独列出；悬停或键盘聚焦会联动高亮国家明细。</desc>
+              </svg>
+              <ul id="guide-country-legend" class="guide-chart-legend"></ul>
+            </div>
+            <p id="guide-country-selection" class="guide-chart-selection" aria-live="polite">悬停或聚焦环图扇区、图例和国家明细，可联动高亮；点击可定位。</p>
+          </article>
+
+          <article class="guide-chart-block">
+            <div class="guide-chart-heading">
+              <h3>学位项目层级</h3>
+              <span>单位：项目记录</span>
+            </div>
+            <svg id="guide-degree-chart" class="guide-chart guide-bars" role="img" aria-labelledby="guide-degree-chart-title guide-degree-chart-desc" viewBox="0 0 520 190">
+              <title id="guide-degree-chart-title">学位项目层级分布</title>
+              <desc id="guide-degree-chart-desc">按现有博士和硕士项目记录显示项目数量；数量为零的层级不显示。</desc>
+            </svg>
+            <ul id="guide-degree-legend" class="guide-chart-legend guide-degree-legend"></ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="guide-section" aria-labelledby="guide-countries-title">
+        <h2 id="guide-countries-title">国家 / 地区分布</h2>
+        <p class="guide-note">按根机构所在国家统计；已标注国家明细默认全部展开，只有“未标注”默认收起。地点状态区分“已核实”和“已归属·推断”，多校区、联合项目和线上项目不强行放置单一城市点；悬停图表、图例或国家明细会联动高亮。同一人可能因公开机构关联出现在多个根机构；本页只展示可公开核对的信息。</p>
+        <div class="guide-table-scroll">
+          <table class="guide-table">
+            <thead>
+              <tr>
+                <th scope="col">国家 / 地区</th>
+                <th scope="col">根机构</th>
+                <th scope="col">项目</th>
+                <th scope="col">可定位教师</th>
+              </tr>
+            </thead>
+            <tbody id="guide-country-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="guide-section" aria-labelledby="guide-sources-title">
+        <h2 id="guide-sources-title">来源与方法</h2>
+        <div class="source-list">
+          <article class="source-entry">
+            <h3>最终事实来源：学校官方页面</h3>
+            <p>项目最终以学校官方项目详情页、研究生院 / 招生目录或官方招生页面核实；机构地点、教师名册和个人资料也优先使用学校官方页面。</p>
+            <p id="guide-official-source-stats" class="source-stat"></p>
+            <p class="source-limit">第三方聚合页、会议 affiliation、实验室名称不能单独替代项目级官方证据。</p>
+          </article>
+
+          <article class="source-entry">
+            <h3>发现与背景来源：论文、会议与 GDC</h3>
+            <p>部分机构或人员线索来自公开论文作者 / affiliation、学术会议与会者或演讲者名单，以及 <a href="https://www.gdconf.com/" target="_blank" rel="noopener noreferrer">GDC 官方 speaker / session / program 页面</a>；<a href="https://www.kmjn.org/game-rankings/affiliations.html" target="_blank" rel="noopener noreferrer">KMJN affiliation index</a> 也用于技术游戏研究侧的公开线索发现。它们用于发现可继续核对的机构或人员、补充研究 / 行业背景，不替代学校官方项目页、招生目录或官方教师页。</p>
+            <p class="source-stat">来源标注：论文、会议与 GDC = 发现或背景来源；学校官方项目页、招生目录和教师名册 = 对应公开事实的主要核对来源。</p>
+            <p class="source-limit">论文、会议和 GDC 页面不能单独证明学位项目存在、当前任职或招生状态；通过这些来源发现的线索仍需回到学校官方页面核对。</p>
+          </article>
+
+          <article class="source-entry">
+            <h3>公开数据下载</h3>
+            <p>以下文件只提供 GPA 的公开项目、机构和教师字段，方便第三方复核；页面只展示可公开核对的信息。</p>
+            <p class="source-limit">当前数据是有公开来源约束的公开子集，不是全球完备普查；“已归属·推断”表示机构身份与地理归属已有可靠依据，但不等同于官方页面直接写出该国名；未标注、未核和读取失败等状态仍按各自含义保留。</p>
+            <p class="source-links"><a href="gpa-catalog.json?v=gpa-20260905b">下载 GPA catalog</a> · <a href="public-dataset.json?v=gpa-20260905b">下载完整公开数据</a> · <a href="data-sources.html">阅读渲染后的数据说明</a></p>
+          </article>
+        </div>
+      </section>
+
+      <p class="guide-caveat">状态区分：未标注、未查到、页面未说明和读取失败不会被合并成“没有”。统计失败时不会渲染为 0。</p>
+    </div>
+  </section>
+
+  <main class="atlas-shell">
+    <aside id="institution-directory" class="directory" aria-label="机构目录">
+      <div class="directory-controls">
+        <label for="search">查找机构、城市或教师</label>
+        <input id="search" type="search" placeholder="输入名称" autocomplete="off">
+        <fieldset class="degree-filters">
+          <legend>学位层级</legend>
+          <label><input type="checkbox" value="phd" checked><i class="legend-mark phd"></i>博士点</label>
+          <label><input type="checkbox" value="master" checked><i class="legend-mark master"></i>硕士点</label>
+          <label><input type="checkbox" value="unbound" checked><i class="legend-mark unbound"></i>未关联学位项目记录</label>
+        </fieldset>
+        <fieldset class="country-filters">
+          <legend>国家 / 地区（可多选）</legend>
+          <div id="country-options" class="country-options"></div>
+        </fieldset>
+        <fieldset class="link-filters">
+          <legend>机构连线</legend>
+          <label><input id="link-toggle" type="checkbox" checked>显示连线（只看密度和中心，不解释单条边）</label>
+          <div class="link-legend">
+            <span><i class="legend-line link-study"></i>求学</span>
+            <span><i class="legend-line link-teach"></i>任教</span>
+            <span><i class="legend-line link-collab"></i>学术合作</span>
+            <span><i class="legend-line link-discounted"></i>含历史/兼职关系（虚线）</span>
+          </div>
+        </fieldset>
+        <p id="map-coverage" class="map-coverage">正在核对城市坐标</p>
+      </div>
+      <ol id="institution-list" class="institution-list" aria-live="polite"></ol>
+    </aside>
+
+    <section class="map-panel" aria-labelledby="map-title">
+      <div class="map-heading">
+        <div>
+          <h2 id="map-title">世界地图</h2>
+          <p>圆点定位到城市，不代表具体校区。每个根机构只显示一个点；同校部门与研究组在抽屉内下钻。</p>
+        </div>
+        <div class="map-actions">
+          <div class="view-switch" role="tablist" aria-label="视图切换">
+            <button id="view-map" class="view-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="world-map">地图</button>
+            <button id="view-table" class="view-tab" type="button" role="tab" aria-selected="false" aria-controls="table-panel">表格</button>
+          </div>
+          <div class="degree-counts" id="degree-counts">博士 0 / 硕士 0</div>
+          <button id="directory-toggle" class="zoom-reset directory-toggle" type="button" aria-controls="institution-directory" aria-expanded="true">收起目录</button>
+          <button id="zoom-reset" class="zoom-reset" type="button">重置地图</button>
+        </div>
+      </div>
+      <div id="map-status" class="map-status" role="status">正在加载真实地图底板和公开数据</div>
+      <div id="world-map" class="world-map" role="application" aria-label="游戏相关学术机构世界地图，可缩放并拖拽平移">
+        <div id="fallback-map" class="fallback-map" aria-hidden="true">地图底图不可用 · 正在显示 Natural Earth 降级底图</div>
+        <div id="leaflet-map" aria-label="OpenStreetMap 互动地图"></div>
+        <a class="map-attribution" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a>
+      </div>
+      <div id="table-panel" class="table-panel" role="tabpanel" aria-labelledby="view-table" hidden>
+        <div class="table-controls">
+          <label class="table-scope">显示
+            <select id="table-scope">
+              <option value="programs">学位项目</option>
+              <option value="organizations">机构</option>
+              <option value="people">教师</option>
+            </select>
+          </label>
+          <input id="table-search" class="table-search" type="search" placeholder="在表格内检索" aria-label="在表格内检索">
+          <label class="table-scope">每页
+            <select id="table-page-size">
+              <option value="50">50</option>
+              <option value="100" selected>100</option>
+              <option value="250">250</option>
+              <option value="0">全部</option>
+            </select>
+          </label>
+          <span id="table-count" class="table-count"></span>
+          <button id="clear-filters" class="zoom-reset" type="button" hidden>清除列筛选</button>
+          <div class="table-exports">
+            <button id="export-csv" class="zoom-reset" type="button">导出 CSV</button>
+            <button id="export-json" class="zoom-reset" type="button">导出 JSON</button>
+          </div>
+        </div>
+        <p class="table-note">表格与地图共用左侧的学位层级、国家/地区与关键词筛选。点击表头排序，再次点击反向；表头下面每一列都可以单独筛选（国家、城市、层级等给可选值，其余给关键词）。导出的是当前筛选与排序后的结果。</p>
+        <div class="table-scroll">
+          <table id="atlas-table" class="atlas-table">
+            <thead id="table-head"></thead>
+            <tbody id="table-body"></tbody>
+          </table>
+        </div>
+        <div class="table-pager">
+          <button id="table-prev" class="zoom-reset" type="button">上一页</button>
+          <span id="table-page" class="table-count"></span>
+          <button id="table-next" class="zoom-reset" type="button">下一页</button>
+        </div>
+      </div>
+      <footer class="map-footer">
+        <p id="coordinate-note">无坐标，未在地图上展示的机构仍完整保留在左侧列表。</p>
+        <details id="network-gate">
+          <summary>师承网络覆盖门禁</summary>
+          <p id="network-insufficient">正在计算师承边和导师覆盖率。</p>
+          <ol id="cluster-list" hidden></ol>
+        </details>
+      </footer>
+    </section>
+  </main>
+
+  <aside id="institution-drawer" class="institution-drawer" aria-hidden="true" aria-labelledby="drawer-title">
+    <button id="drawer-close" class="drawer-close" type="button" aria-label="关闭机构详情">关闭</button>
+    <p id="drawer-location" class="drawer-location">机构地点</p>
+    <h2 id="drawer-title">选择一个机构</h2>
+    <div id="drawer-body"></div>
+  </aside>
+  <div id="drawer-scrim" class="drawer-scrim" hidden></div>
+
+  <script src="vendor/leaflet/leaflet.js" defer></script>
+  <script src="vendor/leaflet.markercluster/leaflet.markercluster.js" defer></script>
+  <script src="atlas.js?v=gpa-20260905b" defer></script>
+</body>
+</html>
