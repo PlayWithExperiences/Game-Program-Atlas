@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>申请日历 · Game Program Atlas</title>
+  <link rel="stylesheet" href="atlas.css?v=mobile-calendar-20261013">
+  <link rel="stylesheet" href="calendar.css?v=20261015-gap-status">
+</head>
+<body class="calendar-page">
+  <header class="masthead"><a class="wordmark" href="index.html">GAME PROGRAM ATLAS</a><nav aria-label="主要导航"><a href="index.html">院校地图</a><a href="ecosystem.html">研究组织</a><a href="calendar.html" aria-current="page">申请日历</a></nav></header>
+  <main class="calendar-main">
+    <div class="calendar-intro"><p class="guide-kicker">游戏 · 互动媒体 · 相邻研究方向</p><h1>申请日历</h1><p>先看近期截止，再查全部机会。涵盖硕士、博士、RA／研究助理、博士后与教职／研究员五类机会；奖学金等资助在对应机会中标注。</p><p id="coverage-note"></p><p id="timeline-note" class="calendar-muted"></p><p class="calendar-muted">尚未公布＝官网明确待发布；没有固定截止＝已核滚动申请；没核实到＝缺少可靠依据、来源不可读或有冲突。三者不混同。无确定日期的项目保留在下表，不放入日期格。申请和资助分别显示；雷达刷新时继续复核，仅同步有依据的公开信息。</p><p id="snapshot-note" class="calendar-muted" role="status">正在读取公开申请信息…</p></div>
+    <section class="calendar-filters" aria-label="搜索和筛选">
+      <label class="calendar-search">搜索机会<input id="calendar-search" type="search" placeholder="名称、院校、国家或关键词" autocomplete="off"></label>
+      <label>类型<select id="kind-filter"><option value="">全部类型</option><option>硕士</option><option>博士</option><option>RA／研究助理</option><option>博士后</option><option>教职／研究员</option></select></label>
+      <label>地区<select id="country-filter"><option value="">全部地区</option></select></label>
+      <label>记录类别<select id="record-filter"><option value="">全部记录</option><option value="program">长期学位项目</option><option value="opportunity">具体轮次／岗位</option></select></label>
+      <label>日期状态<select id="status-filter"><option value="">全部状态</option><option value="upcoming">日期未过</option><option value="past">日期已过</option><option value="undated">无确定日期</option></select></label>
+      <label>时间缺口<select id="gap-filter"><option value="">全部时间状态</option><option value="not_announced">尚未公布（申请或资助）</option><option value="no_fixed">没有固定截止（滚动申请）</option><option value="unverified">没核实到（申请或资助）</option><option value="position_based">随岗位公告</option><option value="annual">年度轮次参考</option></select></label>
+      <label>时间核查<select id="review-filter"><option value="">全部核查状态</option><option value="verified">已核日期或规则</option><option value="pending">仍待核实</option><option value="official_not_announced">官网尚未公布</option><option value="not_accepting">本轮不招生</option><option value="discontinued">项目已停办</option></select></label>
+      <button id="clear-filters" type="button">清除筛选</button>
+    </section>
+    <section class="calendar-overview" aria-label="截止日概览">
+      <div class="month-panel"><div class="month-heading"><h2 id="month-title"></h2><div class="month-actions"><button id="month-prev" aria-label="上个月" type="button">←</button><button id="month-today" type="button">本月</button><button id="month-next" aria-label="下个月" type="button">→</button></div></div><p class="calendar-muted">按来源所在地日期排列；点击有标记的日期查看机会。</p><div class="weekdays" aria-hidden="true"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div><div id="month-grid" class="month-grid" aria-labelledby="month-title"></div></div>
+      <aside class="upcoming-panel"><div class="month-heading"><h2 id="agenda-title">最近截止</h2><button id="agenda-reset" type="button" hidden>看最近</button></div><div id="deadline-agenda" aria-live="polite"></div></aside>
+    </section>
+    <section class="calendar-table-section" aria-labelledby="all-title"><div class="all-heading"><div><h2 id="all-title">全部项目与机会</h2><p id="result-count" class="calendar-muted" aria-live="polite"></p></div><label>排列方式<select id="calendar-sort"><option value="countdown">倒计时 · 近期优先</option><option value="countdown-desc">倒计时 · 反向排列</option><option value="date-asc">截止日期 · 从早到晚</option><option value="date-desc">截止日期 · 从晚到早</option><option value="name-asc">名称 · A–Z</option><option value="name-desc">名称 · Z–A</option><option value="country">国家 / 地区 · 正序</option><option value="country-desc">国家 / 地区 · 反序</option><option value="type">机会类型 · 正序</option><option value="type-desc">机会类型 · 反序</option></select></label></div>
+      <p class="calendar-muted">表格完整收录现有目录的学位项目，并列出已核申请轮次与岗位，并非全球完整清单。无确定日期也会列出；横向滑动可查看全部列。</p>
+      <div class="calendar-table-scroll" tabindex="0" role="region" aria-label="全部机会表格，可横向滚动"><table class="calendar-table"><thead><tr><th scope="col" data-sort="name"><button type="button">机会名称 ↕</button></th><th scope="col">申请与资助状态</th><th scope="col" data-sort="type"><button type="button">类型 ↕</button></th><th scope="col" data-sort="country"><button type="button">地区 ↕</button></th><th scope="col" data-sort="date"><button type="button">最近截止节点 ↕</button></th><th scope="col" data-sort="countdown"><button type="button">倒计时 ↕</button></th><th scope="col">来源与核查</th></tr></thead><tbody id="calendar-rows"></tbody></table></div>
+      <p id="calendar-empty" hidden>没有符合筛选条件的机会。试试其他关键词，或清除筛选。</p>
+    </section>
+    <footer class="calendar-footer"><p>月历展示已核的申请、资助、材料截止节点；表格显示最近一个节点，展开查看全部轮次与适用人群。日期未过不等于确认仍在招生。仅有日期时不猜测截止时刻；滚动招生、年度惯例和未核实的日期不放入月历；申请日期未公布时，已单独核实的资助截止仍会展示。岗位招满、官网延期和不同申请轮次请回到原始公告确认。</p><p>仅整理公开招生与岗位事实，不包含个人评分、申请安排、联系记录或私人备注。<a href="application-calendar.json">下载公开数据</a> · <a href="index.html">返回院校地图</a></p></footer>
+  </main><script type="module" src="calendar.js?v=20261017-programme-funding-scope"></script>
+</body>
+</html>
