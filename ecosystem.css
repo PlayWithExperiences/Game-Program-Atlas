@@ -1,0 +1,19 @@
+.ecosystem-page {display:block}.ecosystem-page nav {display:flex;flex-wrap:wrap;gap:1rem;font-size:.85rem}.ecosystem-page a {color:var(--accent)}.ecosystem-page .ecosystem {max-width:1440px;margin:auto;padding:2rem 1.5rem}.ecosystem-page :focus-visible {outline:2px solid var(--accent);outline-offset:3px}.ecosystem-page h1 {line-height:1.25}.ecosystem-page p {line-height:1.6}.ecosystem-page [data-retry] {padding:.6rem 1rem}
+
+  .ecosystem { padding-block: 2rem 3rem; }
+  .ecosystem-heading h1 { font-size: clamp(1.8rem,3.5vw,2.8rem); max-width: none; margin-block: .6rem 1rem; }
+  .ecosystem-heading p { max-width: 80ch; }
+  .ecosystem-meta,.ecosystem-notes { color: var(--muted); font-size: .85rem; }
+  .ecosystem-filters { display: flex; flex-wrap: wrap; gap: .8rem; align-items: end; padding-block: 1rem; border-block: 1px solid var(--line); }
+  .ecosystem-filters label { display: grid; gap: .35rem; font-size: .8rem; }
+  .ecosystem-query { flex: 1 1 15rem; }
+  .ecosystem-filters :is(input,select,button) { min-height: 2.6rem; min-width: 0; max-width: 100%; padding: .5rem .65rem; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: .3rem; }
+  .ecosystem-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,22rem),1fr)); gap: 1rem; align-items: start; }
+  .ecosystem-grid article { padding: 1.2rem; border: 1px solid var(--line); border-radius: .5rem; background: var(--surface); overflow-wrap: anywhere; }
+  .ecosystem-grid h2 { font-size: 1.15rem; line-height: 1.45; margin: .4rem 0 .8rem; }
+  .ecosystem-grid p { margin-block: .6rem; font-size: .9rem; }
+  .ecosystem-grid button { color: var(--accent); background: transparent; border: 0; text-decoration: underline; cursor: pointer; padding: 0; text-align: left; font: inherit; }
+  .ecosystem-grid ul { padding-left: 1.2rem; }
+  .ecosystem-grid li { margin-block: .6rem; }
+  .ecosystem-notes { margin-top: 2rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+  @media(max-width:640px) { .ecosystem-filters label { flex: 1 1 45%; } .ecosystem-query { flex-basis: 100% !important; } }
