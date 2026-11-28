@@ -1,0 +1,151 @@
+/* 由 tools/build.py 从 pwe.tokens.json 生成，勿手改。PWE v0.4 暂定字标；UI 沿用 v0.3。 */
+
+/* 夜为主：默认暗色；系统为亮时跟随为晨；<html data-theme="light|dark"> 可手动指定。 */
+
+:root {
+  --pwe-logo-amber: #FFBF00;
+  --pwe-font-brand: "LXGW WenKai", "霞鹜文楷", "LXGW WenKai Screen", "Kaiti SC", STKaiti, serif;
+  --pwe-font-mono: "LXGW WenKai Mono", "霞鹜文楷等宽", ui-monospace, Menlo, monospace;
+  --pwe-fs-xs: 12px;
+  --pwe-fs-sm: 14px;
+  --pwe-fs-md: 16px;
+  --pwe-fs-lg: 20px;
+  --pwe-fs-xl: 25px;
+  --pwe-fs-2xl: 31px;
+  --pwe-fs-3xl: 39px;
+  --pwe-fs-4xl: 49px;
+  --pwe-fs-5xl: 61px;
+  --pwe-space-1: 4px;
+  --pwe-space-2: 8px;
+  --pwe-space-3: 12px;
+  --pwe-space-4: 16px;
+  --pwe-space-6: 24px;
+  --pwe-space-8: 32px;
+  --pwe-space-12: 48px;
+  --pwe-space-16: 64px;
+  --pwe-space-24: 96px;
+  --pwe-radius-sm: 4px;
+  --pwe-radius-md: 10px;
+  --pwe-radius-pill: 999px;
+  --pwe-measure-content: 1120px;
+  --pwe-measure-reading: 680px;
+  --pwe-measure-workspace: 1600px;
+  --pwe-measure-sidebar: 192px;
+  --pwe-measure-desktop-min: 900px;
+  --pwe-control-target: 44px;
+  --pwe-control-icon: 22px;
+  --pwe-control-nav: 56px;
+  --pwe-logo-min: 192px;
+  --pwe-logo-nav-height: 32px;
+  --pwe-dur-fast: 120ms;
+  --pwe-dur-base: 180ms;
+  --pwe-ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  color-scheme: dark light;
+  --pwe-bg: #0F1420;
+  --pwe-surface: #161D2E;
+  --pwe-sunk: #0A0E17;
+  --pwe-ink: #E4E7EE;
+  --pwe-ink-2: #A9B1C3;
+  --pwe-ink-3: #7F889C;
+  --pwe-line: #263049;
+  --pwe-star: #F0C96A;
+  --pwe-aurora: #7FC8C2;
+  --pwe-on-star: #0F1420;
+  --pwe-priority-core: #2F4652;
+  --pwe-priority-important: #233240;
+  --pwe-priority-suggested: #1A2434;
+  --pwe-data-dian: #A9B6E8;
+  --pwe-data-qing: #7FC8C2;
+  --pwe-data-shan: #E59A8A;
+  --pwe-data-ban: #8E98AD;
+  --pwe-data-wu: #B9A3E3;
+  --pwe-data-mei: #E58FB0;
+  --pwe-data-tai: #A8C69F;
+  --pwe-danger: #F08A8A;
+  --pwe-warning: #E8B65A;
+  --pwe-success: #A8C69F;
+  --pwe-info: #A9B6E8;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --pwe-bg: #EEF0F4;
+    --pwe-surface: #F9FAFC;
+    --pwe-sunk: #E3E7EE;
+    --pwe-ink: #141A28;
+    --pwe-ink-2: #3F4860;
+    --pwe-ink-3: #5B6479;
+    --pwe-line: #CDD3DE;
+    --pwe-star: #80600F;
+    --pwe-aurora: #226B66;
+    --pwe-on-star: #F9FAFC;
+    --pwe-priority-core: #C5D8D8;
+    --pwe-priority-important: #DFE9EA;
+    --pwe-priority-suggested: #F0F4F6;
+    --pwe-data-dian: #3D4F9A;
+    --pwe-data-qing: #226B66;
+    --pwe-data-shan: #A2463A;
+    --pwe-data-ban: #5B6479;
+    --pwe-data-wu: #5E4A9A;
+    --pwe-data-mei: #A33A66;
+    --pwe-data-tai: #4F7A45;
+    --pwe-danger: #A8323A;
+    --pwe-warning: #7A5A0C;
+    --pwe-success: #3F6E37;
+    --pwe-info: #3D4F9A;
+  }
+}
+
+:root[data-theme="light"] {
+  --pwe-bg: #EEF0F4;
+  --pwe-surface: #F9FAFC;
+  --pwe-sunk: #E3E7EE;
+  --pwe-ink: #141A28;
+  --pwe-ink-2: #3F4860;
+  --pwe-ink-3: #5B6479;
+  --pwe-line: #CDD3DE;
+  --pwe-star: #80600F;
+  --pwe-aurora: #226B66;
+  --pwe-on-star: #F9FAFC;
+  --pwe-priority-core: #C5D8D8;
+  --pwe-priority-important: #DFE9EA;
+  --pwe-priority-suggested: #F0F4F6;
+  --pwe-data-dian: #3D4F9A;
+  --pwe-data-qing: #226B66;
+  --pwe-data-shan: #A2463A;
+  --pwe-data-ban: #5B6479;
+  --pwe-data-wu: #5E4A9A;
+  --pwe-data-mei: #A33A66;
+  --pwe-data-tai: #4F7A45;
+  --pwe-danger: #A8323A;
+  --pwe-warning: #7A5A0C;
+  --pwe-success: #3F6E37;
+  --pwe-info: #3D4F9A;
+}
+
+:root[data-theme="dark"] {
+  --pwe-bg: #0F1420;
+  --pwe-surface: #161D2E;
+  --pwe-sunk: #0A0E17;
+  --pwe-ink: #E4E7EE;
+  --pwe-ink-2: #A9B1C3;
+  --pwe-ink-3: #7F889C;
+  --pwe-line: #263049;
+  --pwe-star: #F0C96A;
+  --pwe-aurora: #7FC8C2;
+  --pwe-on-star: #0F1420;
+  --pwe-priority-core: #2F4652;
+  --pwe-priority-important: #233240;
+  --pwe-priority-suggested: #1A2434;
+  --pwe-data-dian: #A9B6E8;
+  --pwe-data-qing: #7FC8C2;
+  --pwe-data-shan: #E59A8A;
+  --pwe-data-ban: #8E98AD;
+  --pwe-data-wu: #B9A3E3;
+  --pwe-data-mei: #E58FB0;
+  --pwe-data-tai: #A8C69F;
+  --pwe-danger: #F08A8A;
+  --pwe-warning: #E8B65A;
+  --pwe-success: #A8C69F;
+  --pwe-info: #A9B6E8;
+}
